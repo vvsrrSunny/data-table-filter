@@ -1,3 +1,3 @@
 <x-app-layout>
-  <!-- enter the vue component here -->
+<dashboard-page />
 </x-app-layout>
