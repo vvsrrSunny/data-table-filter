@@ -1,0 +1,13 @@
+{
+  "resources/js/app.js": {
+    "file": "assets/app.f900cf2f.js",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "imports": [
+      "_vendor.baeb0697.js"
+    ]
+  },
+  "_vendor.baeb0697.js": {
+    "file": "assets/vendor.baeb0697.js"
+  }
+}
