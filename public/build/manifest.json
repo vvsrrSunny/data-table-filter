@@ -5,6 +5,9 @@
     "isEntry": true,
     "imports": [
       "_vendor.baeb0697.js"
+    ],
+    "css": [
+      "assets/app.ac965395.css"
     ]
   },
   "_vendor.baeb0697.js": {
