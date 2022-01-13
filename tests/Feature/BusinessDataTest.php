@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\BusinessData;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 
 test('can view the business offices dashboard', function () {
     $this->get(route('business.index'))
@@ -81,43 +82,43 @@ test('can filter business data table by the number of offices', function () {
 });
 
 test('can filter business data table by the number of tables', function () {
-        BusinessData::factory()->create([
-            'tables' => 5,
+    BusinessData::factory()->create([
+        'tables' => 5,
+    ]);
+
+    BusinessData::factory()->count(3)->create([
+        'tables' => 10,
+    ]);
+
+    $this->getJson(route('business.index', ['tables' => 5]))
+        ->assertOk()
+        ->assertJson([
+            'total' => 1,
+            'data' => [
+                [
+                    'tables' => 5
+                ]
+            ]
         ]);
 
-        BusinessData::factory()->count(3)->create([
-            'tables' => 10,
+    $this->getJson(route('business.index', ['tables' => 10]))
+        ->assertOk()
+        ->assertJson([
+            'total' => 3,
+            'data' => [
+                [
+                    'tables' => 10
+                ]
+            ]
         ]);
-
-        $this->getJson(route('business.index', ['tables' => 5]))
-            ->assertOk()
-            ->assertJson([
-                'total' => 1,
-                'data' => [
-                    [
-                        'tables' => 5
-                    ]
-                ]
-            ]);
-
-        $this->getJson(route('business.index', ['tables' => 10]))
-            ->assertOk()
-            ->assertJson([
-                'total' => 3,
-                'data' => [
-                    [
-                        'tables' => 10
-                    ]
-                ]
-            ]);
 });
 
 test('validation of business data table inputs', function () {
-        $this->getJson(route('business.index', [
-            'search' => 'e&&**&',
-            'offices' => 'A string',
-            'tables' => 'A string',
-        ]))
+    $this->getJson(route('business.index', [
+        'search' => 'e&&**&',
+        'offices' => 'A string',
+        'tables' => 'A string',
+    ]))
         ->assertStatus(422)
         ->assertJson([
             'errors' => [
@@ -128,46 +129,41 @@ test('validation of business data table inputs', function () {
 });
 
 test('can filter business data table based on the range of square meters', function () {
-    BusinessData::factory()->create([
-        'square_meters' => 100,
-    ]);
-
-    BusinessData::factory()->create([
-        'square_meters' => 250,
-    ]);
-
-    BusinessData::factory()->create([
-        'square_meters' => 300,
-    ]);
+    BusinessData::factory()->count(3)
+        ->state(new Sequence(
+            ['square_meters' => 100],
+            ['square_meters' => 250],
+            ['square_meters' => 300],
+        ))->create();
 
     $this->getJson(route('business.index', [
-            'square_meters' => [
-                'from' => 100,
-                'to' => 300
-            ]
-        ]))
+        'square_meters' => [
+            'from' => 100,
+            'to' => 300
+        ]
+    ]))
         ->assertOk()
         ->assertJson([
             'total' => 3,
         ]);
 
     $this->getJson(route('business.index', [
-            'square_meters' => [
-                'from' => 100,
-                'to' => 155
-            ]
-        ]))
+        'square_meters' => [
+            'from' => 100,
+            'to' => 155
+        ]
+    ]))
         ->assertOk()
         ->assertJson([
             'total' => 1,
         ]);
 
     $this->getJson(route('business.index', [
-            'square_meters' => [
-                'from' => 99,
-                'to' => 255
-            ]
-        ]))
+        'square_meters' => [
+            'from' => 99,
+            'to' => 255
+        ]
+    ]))
         ->assertOk()
         ->assertJson([
             'total' => 2,
