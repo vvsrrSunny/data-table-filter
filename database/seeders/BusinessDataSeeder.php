@@ -50,11 +50,11 @@ class BusinessDataSeeder extends Seeder
             }
 
             DB::table('business_data')->insert([
-                'Name' => $name,
-                'Price' => $priceVal,
-                'Offices' => $officesVal,
-                'Tables' => $tablesVal,
-                'Sqm' => $sqmVal,
+                'name' => $name,
+                'price' => $priceVal,
+                'offices' => $officesVal,
+                'tables' => $tablesVal,
+                'Square_meters' => $sqmVal,
             ]);
         }
     }

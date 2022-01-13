@@ -15,12 +15,12 @@ class CreateBusinessDataTable extends Migration
     {
         Schema::create('business_data', function (Blueprint $table) {
             $table->id();
-            $table->string('Name');
-            $table->double('Price')->nullable();
-            $table->integer('Offices')->nullable();
-            $table->integer('Tables')->nullable();
-            $table->float('Sqm')->nullable();
-            $table->timestamps();;
+            $table->string('name');
+            $table->double('price')->nullable();
+            $table->integer('offices')->nullable();
+            $table->integer('tables')->nullable();
+            $table->float('square_meters')->nullable();
+            $table->timestamps();
         });
     }
 

@@ -14,7 +14,11 @@ class BusinessDataFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name,
+            'price' => $this->faker->numberBetween(700, 10000),
+            'square_meters' => $this->faker->numberBetween(10, 20),
+            'offices' => $offices = $this->faker->numberBetween(1, 50),
+            'tables' => $this->faker->numberBetween(4, 1000),
         ];
     }
 }
