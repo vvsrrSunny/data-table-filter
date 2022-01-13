@@ -17,10 +17,11 @@ class BusinessDataController extends Controller
     {
         if ($request->expectsJson()) {
             return BusinessData::query()
+                ->when($request->filled('search'), fn ($query) => $query->searchByName($request->search))
                 ->orderBy('name')
                 ->paginate(5);
         }
-        
+
         return view('dashboard');
     }
 }

@@ -24,7 +24,10 @@ class BusinessDataRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'search' => [
+                'sometimes',
+                'string',
+            ],
         ];
     }
 }
