@@ -24,18 +24,27 @@ test('can filter the business data table by name', function () {
     BusinessData::factory()->count(2)->create();
 
     // Can filter results
-    $this
-        ->getJson(route('business.index', ['search' => 'Perth Northbridge']))
+    $this->getJson(route('business.index', ['search' => 'Perth Northbridge']))
         ->assertOk()
         ->assertJson([
             'total' => 1,
+            'data' => [
+                [
+                    'name' => 'Perth Northbridge'
+                ]
+            ]
         ]);
 
     // Works on a partial search
-    $this
-        ->getJson(route('business.index', ['search' => 'Perth']))
+    $this->getJson(route('business.index', ['search' => 'Perth']))
         ->assertOk()
         ->assertJson([
             'total' => 1,
+            'data' => [
+                [
+                    'name' => 'Perth Northbridge'
+                ]
+            ]
         ]);
 });
+
