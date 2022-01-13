@@ -57,15 +57,15 @@ test('can filter business data table by the number of offices', function () {
         'offices' => 10,
     ]);
 
-    $this->getJson(route('offices.index', ['offices' => 5]))
-        ->assertOk()
-        ->assertJson([
-            'total' => 2,
-        ]);
-
-    $this->getJson(route('offices.index', ['offices' => 2]))
+    $this->getJson(route('business.index', ['offices' => 5]))
         ->assertOk()
         ->assertJson([
             'total' => 1,
+        ]);
+
+    $this->getJson(route('business.index', ['offices' => 10]))
+        ->assertOk()
+        ->assertJson([
+            'total' => 3,
         ]);
 });
