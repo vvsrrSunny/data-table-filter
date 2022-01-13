@@ -18,6 +18,7 @@ class BusinessDataController extends Controller
         if ($request->expectsJson()) {
             return BusinessData::query()
                 ->when($request->filled('search'), fn ($query) => $query->searchByName($request->search))
+                ->when($request->filled('offices'), fn($query) => $query->searchByOffices($request->offices))
                 ->orderBy('name')
                 ->paginate(5);
         }

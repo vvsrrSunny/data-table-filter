@@ -21,4 +21,16 @@ class BusinessData extends Model
     {
         return $query->where('name', 'like', "%{$name}%");
     }
+
+    /**
+     * Scope a query to only include filtering by offices
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @param $offices
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSearchByOffices($query, $offices): Builder
+    {
+        return $query->where('offices', $offices);
+    }
 }
