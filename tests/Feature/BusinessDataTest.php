@@ -114,9 +114,15 @@ test('can filter business data table by the number of tables', function () {
 
 test('validation of business data table inputs', function () {
         $this->getJson(route('business.index', [
-            'search' => '%^*',
+            'search' => 'e&&**&',
             'offices' => 'A string',
             'tables' => 'A string',
         ]))
-        ->assertStatus(422);
+        ->assertStatus(422)
+        ->assertJson([
+            'errors' => [
+                'offices' => ['The offices must be a number.'],
+                'tables' => ['The tables must be a number.']
+            ]
+        ]);
 });
