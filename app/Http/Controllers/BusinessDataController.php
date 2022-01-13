@@ -19,6 +19,7 @@ class BusinessDataController extends Controller
             return BusinessData::query()
                 ->when($request->filled('search'), fn ($query) => $query->searchByName($request->search))
                 ->when($request->filled('offices'), fn($query) => $query->searchByOffices($request->offices))
+                ->when($request->filled('tables'), fn($query) => $query->searchByTables($request->tables))
                 ->orderBy('name')
                 ->paginate(5);
         }

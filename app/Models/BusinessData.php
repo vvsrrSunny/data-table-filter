@@ -33,4 +33,16 @@ class BusinessData extends Model
     {
         return $query->where('offices', $offices);
     }
+
+    /**
+     * Scope a query to only include filtering by tables
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @param $tables
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSearchByTables($query, $tables): Builder
+    {
+        return $query->where('tables', $tables);
+    }
 }
