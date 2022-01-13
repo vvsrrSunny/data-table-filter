@@ -28,6 +28,14 @@ class BusinessDataRequest extends FormRequest
                 'sometimes',
                 'string',
             ],
+            'offices' => [
+                'sometimes',
+                'numeric',
+            ],
+            'tables' => [
+                'sometimes',
+                'numeric',
+            ],
         ];
     }
 }
