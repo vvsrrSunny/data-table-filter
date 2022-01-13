@@ -126,3 +126,50 @@ test('validation of business data table inputs', function () {
             ]
         ]);
 });
+
+test('can filter business data table based on the range of square meters', function () {
+    BusinessData::factory()->create([
+        'square_meters' => 100,
+    ]);
+
+    BusinessData::factory()->create([
+        'square_meters' => 250,
+    ]);
+
+    BusinessData::factory()->create([
+        'square_meters' => 300,
+    ]);
+
+    $this->getJson(route('business.index', [
+            'square_meters' => [
+                'from' => 100,
+                'to' => 300
+            ]
+        ]))
+        ->assertOk()
+        ->assertJson([
+            'total' => 3,
+        ]);
+
+    $this->getJson(route('business.index', [
+            'square_meters' => [
+                'from' => 100,
+                'to' => 155
+            ]
+        ]))
+        ->assertOk()
+        ->assertJson([
+            'total' => 1,
+        ]);
+
+    $this->getJson(route('business.index', [
+            'square_meters' => [
+                'from' => 99,
+                'to' => 255
+            ]
+        ]))
+        ->assertOk()
+        ->assertJson([
+            'total' => 2,
+        ]);
+});
