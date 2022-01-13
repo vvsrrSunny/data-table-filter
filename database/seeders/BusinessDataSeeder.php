@@ -18,9 +18,7 @@ class BusinessDataSeeder extends Seeder
         $csv = Reader::createFromPath(database_path('seeds\csvs\business-data.csv'), 'r');
         $csv->setHeaderOffset(0);
 
-        $headers = $csv->getHeader(); //returns the CSV header record
         $records = $csv->getRecords(); //returns all the CSV records as an Iterator object
-
 
         foreach ($records as $record) {
             $name = $priceVal = $officesVal = $tablesVal = $sqmVal = null;
