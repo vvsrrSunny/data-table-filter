@@ -45,4 +45,17 @@ class BusinessData extends Model
     {
         return $query->where('tables', $tables);
     }
+
+    /**
+     * Scope a query to only include filtering by a range of square metres
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @param string $from
+     * @param string $to
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSearchBySquareMetersRange($query, string $from, string $to): Builder
+    {
+        return $query->whereBetween('square_meters', [$from, $to]);
+    }
 }

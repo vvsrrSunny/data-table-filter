@@ -20,6 +20,10 @@ class BusinessDataController extends Controller
                 ->when($request->filled('search'), fn ($query) => $query->searchByName($request->search))
                 ->when($request->filled('offices'), fn($query) => $query->searchByOffices($request->offices))
                 ->when($request->filled('tables'), fn($query) => $query->searchByTables($request->tables))
+                ->when(
+                    $request->filled(['square_meters.to', 'square_meters.from']),
+                    fn($query) => $query->searchBySquareMetersRange($request->input('square_meters.from'), $request->input('square_meters.to'))
+                )
                 ->orderBy('name')
                 ->paginate(5);
         }
