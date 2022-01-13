@@ -48,3 +48,24 @@ test('can filter the business data table by name', function () {
         ]);
 });
 
+test('can filter business data table by the number of offices', function () {
+    BusinessData::factory()->create([
+        'offices' => 5,
+    ]);
+
+    BusinessData::factory()->count(3)->create([
+        'offices' => 10,
+    ]);
+
+    $this->getJson(route('offices.index', ['offices' => 5]))
+        ->assertOk()
+        ->assertJson([
+            'total' => 2,
+        ]);
+
+    $this->getJson(route('offices.index', ['offices' => 2]))
+        ->assertOk()
+        ->assertJson([
+            'total' => 1,
+        ]);
+});
