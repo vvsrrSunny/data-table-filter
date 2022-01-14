@@ -339,3 +339,37 @@ test('can filter business data table based on the range of prices', function () 
             'total' => 1,
         ]);
 });
+
+test('can filter business data table with a combination of filters', function () {
+    $northbridgeOffice = BusinessData::factory()->create([
+        'price' => 500,
+        'name' => 'The Northbridge Perth',
+        'offices' => 3,
+        'tables' => 30,
+        'square_meters' => 500,
+    ]);
+
+    // multiple filters applied at the same time to get northbridge perth
+    $this->getJson(route('business.index', [
+            'price' => [
+                'from' => 499,
+                'to' => 501
+            ],
+            'square_meters' => [
+                'from' => 400,
+                'to' => 600
+            ],
+            'search' => 'North',
+            'offices' => 3,
+            'tables' => 30,
+        ]))
+        ->assertOk()
+        ->assertJson([
+            'total' => 1,
+            'data' => [
+                [
+                    'id' => $northbridgeOffice->id,
+                ]
+            ]
+        ]);
+});
