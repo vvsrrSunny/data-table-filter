@@ -128,48 +128,6 @@ test('validation of business data table inputs', function () {
         ]);
 });
 
-test('can filter business data table based on the range of square meters', function () {
-    BusinessData::factory()->count(3)
-        ->state(new Sequence(
-            ['square_meters' => 100],
-            ['square_meters' => 250],
-            ['square_meters' => 300],
-        ))->create();
-
-    $this->getJson(route('business.index', [
-        'square_meters' => [
-            'from' => 100,
-            'to' => 300
-        ]
-    ]))
-        ->assertOk()
-        ->assertJson([
-            'total' => 3,
-        ]);
-
-    $this->getJson(route('business.index', [
-        'square_meters' => [
-            'from' => 100,
-            'to' => 155
-        ]
-    ]))
-        ->assertOk()
-        ->assertJson([
-            'total' => 1,
-        ]);
-
-    $this->getJson(route('business.index', [
-        'square_meters' => [
-            'from' => 99,
-            'to' => 255
-        ]
-    ]))
-        ->assertOk()
-        ->assertJson([
-            'total' => 2,
-        ]);
-});
-
 test('validation on square meter field\'s search range', function () {
     BusinessData::factory()->count(3)
         ->state(new Sequence(
@@ -232,4 +190,93 @@ test('validation on square meter field\'s search range', function () {
                 'square_meters.to' => ['The square meters to must be greater than 150.'],
             ]
         ]);
+});
+
+test('can filter business data table based on the range of square meters', function () {
+    BusinessData::factory()->count(3)
+        ->state(new Sequence(
+            ['square_meters' => 100],
+            ['square_meters' => 250],
+            ['square_meters' => 300],
+        ))->create();
+
+    $this->getJson(route('business.index', [
+        'square_meters' => [
+            'from' => 100,
+            'to' => 300
+        ]
+    ]))
+        ->assertOk()
+        ->assertJson([
+            'total' => 3,
+        ]);
+
+    $this->getJson(route('business.index', [
+        'square_meters' => [
+            'from' => 100,
+            'to' => 155
+        ]
+    ]))
+        ->assertOk()
+        ->assertJson([
+            'total' => 1,
+        ]);
+
+    $this->getJson(route('business.index', [
+        'square_meters' => [
+            'from' => 99,
+            'to' => 255
+        ]
+    ]))
+        ->assertOk()
+        ->assertJson([
+            'total' => 2,
+        ]);
+});
+
+test('validation on price field\'s search range', function () {
+    BusinessData::factory()->count(3)
+        ->state(new Sequence(
+            ['price' => 125],
+            ['price' => 200],
+            ['price' => 300],
+        ))->create();
+
+     // asserting that the price's to value is required when price's from is provided
+    test()
+        ->getJson(route('business.index', [
+            'price' => [
+                'from' => 125
+            ]
+        ]))
+        ->assertStatus(422);
+
+   // asserting that the price's from value is required when price's to is provided
+    test()
+        ->getJson(route('business.index', [
+            'price' => [
+                'to' => 125
+            ]
+        ]))
+        ->assertStatus(422);
+
+    // asserting both the to and from in price must be number
+    test()
+        ->getJson(route('business.index', [
+            'price' => [
+                'from' => 'a string',
+                'to' => 'a string',
+            ]
+        ]))
+        ->assertStatus(422);
+
+    // asserting that in range values must be logical
+    test()
+        ->getJson(route('business.index', [
+            'price' => [
+                'from' => 125,
+                'to' => 30
+            ]
+        ]))
+        ->assertStatus(422);
 });
