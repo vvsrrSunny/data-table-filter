@@ -349,26 +349,61 @@ test('can filter business data table with a combination of filters', function ()
         'square_meters' => 500,
     ]);
 
+    $brisbaneOffice = BusinessData::factory()->create([
+        'price' => 1000,
+        'name' => 'St.Lucia Brisbane',
+        'offices' => 4,
+        'tables' => 40,
+        'square_meters' => 700,
+    ]);
+
     // multiple filters applied at the same time to get northbridge perth
     $this->getJson(route('business.index', [
-            'price' => [
-                'from' => 499,
-                'to' => 501
-            ],
-            'square_meters' => [
-                'from' => 400,
-                'to' => 600
-            ],
-            'search' => 'North',
-            'offices' => 3,
-            'tables' => 30,
-        ]))
+        'price' => [
+            'from' => 499,
+            'to' => 501
+        ],
+        'square_meters' => [
+            'from' => 400,
+            'to' => 600
+        ],
+        'search' => 'North',
+        'offices' => 3,
+        'tables' => 30,
+    ]))
         ->assertOk()
         ->assertJson([
             'total' => 1,
             'data' => [
                 [
                     'id' => $northbridgeOffice->id,
+                    'name' => 'The Northbridge Perth'
+                ]
+            ]
+        ]);
+
+    // multiple filters applied at the same time to get st. lucia Brisbane
+    test()
+        ->getJson(route('business.index', [
+            'price' => [
+                'from' => 999,
+                'to' => 1001
+            ],
+            'square_meters' => [
+                'from' => 600,
+                'to' => 800
+            ],
+            'search' => 'St.Lucia',
+            'offices' => 4,
+            'tables' => 40,
+        ]))
+        ->assertOk()
+        ->assertJson([
+            'total' => 1,
+            'data' => [
+                [
+                    'id' => $brisbaneOffice->id,
+                    'name' => 'St.Lucia Brisbane'
                 ]
             ]
         ]);
