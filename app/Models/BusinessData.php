@@ -58,4 +58,17 @@ class BusinessData extends Model
     {
         return $query->whereBetween('square_meters', [$from, $to]);
     }
+
+    /**
+     * Scope a query to only include filtering by a range of price
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @param string $from
+     * @param string $to
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSearchByPriceRange($query, string $from, string $to): Builder
+    {
+        return $query->whereBetween('price', [$from, $to]);
+    }
 }
