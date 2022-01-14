@@ -169,3 +169,46 @@ test('can filter business data table based on the range of square meters', funct
             'total' => 2,
         ]);
 });
+
+test('validation on square meter field\'s search range', function () {
+    BusinessData::factory()->count(3)
+        ->state(new Sequence(
+            ['square_meters' => 50],
+            ['square_meters' => 100],
+            ['square_meters' => 150],
+        ))->create();
+
+    // asserting that the square meter's to value is required when square meter's from is provided
+    $this->getJson(route('business.index', [
+        'square_meters' => [
+            'from' => 50
+        ]
+    ]))
+        ->assertStatus(422);
+
+    // asserting that the square meter's from value is required when square meter's to is provided
+    $this->getJson(route('business.index', [
+        'square_meters' => [
+            'to' => 50
+        ]
+    ]))
+        ->assertStatus(422);
+
+    // asserting both the to and from in square meter must be number
+    $this->getJson(route('business.index', [
+        'square_meters' => [
+            'from' => 'a string',
+            'to' => 'a string',
+        ]
+    ]))
+        ->assertStatus(422);
+
+    // asserting that in range values must be logical
+    $this->getJson(route('business.index', [
+        'square_meters' => [
+            'from' => 50,
+            'to' => 30
+        ]
+    ]))
+        ->assertStatus(422);
+});
