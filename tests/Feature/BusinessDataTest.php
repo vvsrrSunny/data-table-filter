@@ -242,41 +242,58 @@ test('validation on price field\'s search range', function () {
             ['price' => 300],
         ))->create();
 
-     // asserting that the price's to value is required when price's from is provided
-    test()
-        ->getJson(route('business.index', [
-            'price' => [
-                'from' => 125
-            ]
-        ]))
-        ->assertStatus(422);
+    // asserting that the price's to value is required when price's from is provided
+    $this->getJson(route('business.index', [
+        'price' => [
+            'from' => 125
+        ]
+    ]))
+        ->assertStatus(422)
+        ->assertJson([
+            'errors' => [
+                'price.to' => ['The price.to field is required when price.from is present.'],
+            ],
+        ]);
 
-   // asserting that the price's from value is required when price's to is provided
-    test()
-        ->getJson(route('business.index', [
-            'price' => [
-                'to' => 125
-            ]
-        ]))
-        ->assertStatus(422);
+    // asserting that the price's from value is required when price's to is provided
+    $this->getJson(route('business.index', [
+        'price' => [
+            'to' => 125
+        ]
+    ]))
+        ->assertStatus(422)
+        ->assertJson([
+            'errors' => [
+                'price.from' => ['The price.from field is required when price.to is present.'],
+            ],
+        ]);
 
     // asserting both the to and from in price must be number
-    test()
-        ->getJson(route('business.index', [
-            'price' => [
-                'from' => 'a string',
-                'to' => 'a string',
-            ]
-        ]))
-        ->assertStatus(422);
+    $this->getJson(route('business.index', [
+        'price' => [
+            'from' => 'a string',
+            'to' => 'a string',
+        ]
+    ]))
+        ->assertStatus(422)
+        ->assertJson([
+            'errors' => [
+                'price.from' => ['The price.from must be a number.'],
+                'price.to' => ['The price.to must be a number.'],
+            ],
+        ]);
 
     // asserting that in range values must be logical
-    test()
-        ->getJson(route('business.index', [
-            'price' => [
-                'from' => 125,
-                'to' => 30
+    $this->getJson(route('business.index', [
+        'price' => [
+            'from' => 125,
+            'to' => 30
+        ]
+    ]))
+        ->assertStatus(422)
+        ->assertJson([
+            'errors' => [
+                'price.to' => ['The price.to must be greater than 125.'],
             ]
-        ]))
-        ->assertStatus(422);
+        ]);
 });
