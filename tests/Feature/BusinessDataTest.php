@@ -173,26 +173,36 @@ test('can filter business data table based on the range of square meters', funct
 test('validation on square meter field\'s search range', function () {
     BusinessData::factory()->count(3)
         ->state(new Sequence(
-            ['square_meters' => 50],
-            ['square_meters' => 100],
             ['square_meters' => 150],
+            ['square_meters' => 200],
+            ['square_meters' => 500],
         ))->create();
 
     // asserting that the square meter's to value is required when square meter's from is provided
     $this->getJson(route('business.index', [
         'square_meters' => [
-            'from' => 50
+            'from' => 150
         ]
     ]))
-        ->assertStatus(422);
+        ->assertStatus(422)
+        ->assertJson([
+            'errors' => [
+                'square_meters.to' => ['The square meters.to field is required when square meters.from is present.'],
+            ],
+        ]);
 
     // asserting that the square meter's from value is required when square meter's to is provided
     $this->getJson(route('business.index', [
         'square_meters' => [
-            'to' => 50
+            'to' => 150
         ]
     ]))
-        ->assertStatus(422);
+        ->assertStatus(422)
+        ->assertJson([
+            'errors' => [
+                'square_meters.from' => ['The square meters.from field is required when square meters.to is present.'],
+            ],
+        ]);
 
     // asserting both the to and from in square meter must be number
     $this->getJson(route('business.index', [
@@ -201,14 +211,25 @@ test('validation on square meter field\'s search range', function () {
             'to' => 'a string',
         ]
     ]))
-        ->assertStatus(422);
+        ->assertStatus(422)
+        ->assertJson([
+            'errors' => [
+                'square_meters.from' => ['The square meters.from must be a number.'],
+                'square_meters.to' => ['The square meters.to must be a number.'],
+            ],
+        ]);
 
     // asserting that in range values must be logical
     $this->getJson(route('business.index', [
         'square_meters' => [
-            'from' => 50,
-            'to' => 30
+            'from' => 150,
+            'to' => 100,
         ]
     ]))
-        ->assertStatus(422);
+        ->assertStatus(422)
+        ->assertJson([
+            'errors' => [
+                'square_meters.to' => ['The square meters.to must be greater than 150.'],
+            ]
+        ]);
 });
