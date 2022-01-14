@@ -297,3 +297,45 @@ test('validation on price field\'s search range', function () {
             ]
         ]);
 });
+
+test('can filter business data table based on the range of prices', function () {
+    BusinessData::factory()->count(3)
+        ->state(new Sequence(
+            ['price' => 100],
+            ['price' => 250],
+            ['price' => 300],
+        ))->create();
+
+    $this->getJson(route('business.index', [
+        'price' => [
+            'from' => 100,
+            'to' => 250
+        ]
+    ]))
+        ->assertOk()
+        ->assertJson([
+            'total' => 2,
+        ]);
+
+    $this->getJson(route('business.index', [
+        'price' => [
+            'from' => 99,
+            'to' => 301
+        ]
+    ]))
+        ->assertOk()
+        ->assertJson([
+            'total' => 3,
+        ]);
+
+    $this->getJson(route('business.index', [
+        'price' => [
+            'from' => 99,
+            'to' => 101
+        ]
+    ]))
+        ->assertOk()
+        ->assertJson([
+            'total' => 1,
+        ]);
+});
