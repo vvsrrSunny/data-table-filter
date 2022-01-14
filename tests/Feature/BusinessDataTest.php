@@ -187,7 +187,7 @@ test('validation on square meter field\'s search range', function () {
         ->assertStatus(422)
         ->assertJson([
             'errors' => [
-                'square_meters.to' => ['The square meters.to field is required when square meters.from is present.'],
+                'square_meters.to' => ['The square meters to field is required when square meters from is present.'],
             ],
         ]);
 
@@ -200,7 +200,7 @@ test('validation on square meter field\'s search range', function () {
         ->assertStatus(422)
         ->assertJson([
             'errors' => [
-                'square_meters.from' => ['The square meters.from field is required when square meters.to is present.'],
+                'square_meters.from' => ['The square meters from field is required when square meters to is present.'],
             ],
         ]);
 
@@ -214,8 +214,8 @@ test('validation on square meter field\'s search range', function () {
         ->assertStatus(422)
         ->assertJson([
             'errors' => [
-                'square_meters.from' => ['The square meters.from must be a number.'],
-                'square_meters.to' => ['The square meters.to must be a number.'],
+                'square_meters.from' => ['The square meters from must be a number.'],
+                'square_meters.to' => ['The square meters to must be a number.'],
             ],
         ]);
 
@@ -229,7 +229,7 @@ test('validation on square meter field\'s search range', function () {
         ->assertStatus(422)
         ->assertJson([
             'errors' => [
-                'square_meters.to' => ['The square meters.to must be greater than 150.'],
+                'square_meters.to' => ['The square meters to must be greater than 150.'],
             ]
         ]);
 });

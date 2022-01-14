@@ -157,6 +157,9 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'square_meters.to' => 'square meters to',
+        'square_meters.from' => 'square meters from',
+    ],
 
 ];
