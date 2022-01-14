@@ -45,6 +45,15 @@ class BusinessDataRequest extends FormRequest
                 'required_with:square_meters.to',
                 'numeric',
             ],
+            'price.to' => [
+                'required_with:price.from',
+                'numeric',
+                'gt:price.from',
+            ],
+            'price.from' => [
+                'required_with:price.to',
+                'numeric',
+            ],
         ];
     }
 }
