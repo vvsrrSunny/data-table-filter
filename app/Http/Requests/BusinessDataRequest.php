@@ -36,6 +36,15 @@ class BusinessDataRequest extends FormRequest
                 'sometimes',
                 'numeric',
             ],
+            'square_meters.to' => [
+                'required_with:square_meters.from',
+                'numeric',
+                'gt:square_meters.from',
+            ],
+            'square_meters.from' => [
+                'required_with:square_meters.to',
+                'numeric',
+            ],
         ];
     }
 }
