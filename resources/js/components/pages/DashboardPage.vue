@@ -1,76 +1,11 @@
 <template>
   <table-layout>
     <template v-slot:heading>
-      <th
-        scope="col"
-        class="
-          px-6
-          py-3
-          text-left text-xs
-          font-medium
-          text-gray-500
-          uppercase
-          tracking-wider
-        "
-      >
-        Name
-      </th>
-      <th
-        scope="col"
-        class="
-          px-6
-          py-3
-          text-left text-xs
-          font-medium
-          text-gray-500
-          uppercase
-          tracking-wider
-        "
-      >
-        Price
-      </th>
-      <th
-        scope="col"
-        class="
-          px-6
-          py-3
-          text-left text-xs
-          font-medium
-          text-gray-500
-          uppercase
-          tracking-wider
-        "
-      >
-        Offices
-      </th>
-      <th
-        scope="col"
-        class="
-          px-6
-          py-3
-          text-left text-xs
-          font-medium
-          text-gray-500
-          uppercase
-          tracking-wider
-        "
-      >
-        Tables
-      </th>
-      <th
-        scope="col"
-        class="
-          px-6
-          py-3
-          text-left text-xs
-          font-medium
-          text-gray-500
-          uppercase
-          tracking-wider
-        "
-      >
-        no of Square meters
-      </th>
+      <table-header-cell> Name </table-header-cell>
+      <table-header-cell> Price </table-header-cell>
+      <table-header-cell> Offices </table-header-cell>
+      <table-header-cell> Tables </table-header-cell>
+      <table-header-cell> no of Square meters </table-header-cell>
     </template>
 
     <template v-slot:body>
@@ -99,10 +34,12 @@
 
 <script>
 import TableLayout from "../TableLayout.vue";
+import TableHeaderCell from "../TableHeaderCell.vue";
 
 export default {
   components: {
     TableLayout,
+    TableHeaderCell,
   },
   data() {
     return {
