@@ -10,23 +10,21 @@
 
     <template v-slot:body>
       <tr v-for="dataRecord in business_data" :key="dataRecord.id">
-        <td
-          class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-        >
+        <table-cell>
           {{ dataRecord.name }}
-        </td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+        </table-cell>
+        <table-cell>
           {{ dataRecord.price }}
-        </td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+        </table-cell>
+        <table-cell>
           {{ dataRecord.offices }}
-        </td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+        </table-cell>
+        <table-cell>
           {{ dataRecord.tables }}
-        </td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+        </table-cell>
+        <table-cell>
           {{ dataRecord.square_meters }}
-        </td>
+        </table-cell>
       </tr>
     </template>
   </table-layout>
@@ -35,11 +33,13 @@
 <script>
 import TableLayout from "../TableLayout.vue";
 import TableHeaderCell from "../TableHeaderCell.vue";
+import TableCell from "../TableCell.vue";
 
 export default {
   components: {
     TableLayout,
     TableHeaderCell,
+    TableCell,
   },
   data() {
     return {
