@@ -1,5 +1,5 @@
 <template>
-  <the-table>
+  <table-layout>
     <template v-slot:heading>
       <th
         scope="col"
@@ -94,15 +94,15 @@
         </td>
       </tr>
     </template>
-  </the-table>
+  </table-layout>
 </template>
 
 <script>
-import TheTable from "../TheTable.vue";
+import TableLayout from "../TableLayout.vue";
 
 export default {
   components: {
-    TheTable,
+    TableLayout,
   },
   data() {
     return {
