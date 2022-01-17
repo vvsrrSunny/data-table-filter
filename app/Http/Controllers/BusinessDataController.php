@@ -29,7 +29,7 @@ class BusinessDataController extends Controller
                     fn ($query) => $query->searchByPriceRange($request->input('price.from'), $request->input('price.to'))
                 )
                 ->orderBy('name')
-                ->paginate(5);
+                ->paginate(10);
         }
 
         return view('dashboard');

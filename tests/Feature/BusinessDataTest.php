@@ -16,7 +16,7 @@ test('can get a listing of offices', function () {
         ->assertOk()
         ->assertJson([
             'total' => 7,
-            'per_page' => 5,
+            'per_page' => 10,
         ]);
 });
 
