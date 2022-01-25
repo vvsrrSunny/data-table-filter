@@ -1,6 +1,6 @@
 <template>
   <table-layout>
-    <template v-slot:heading>
+    <template #heading>
       <table-header-cell> Name </table-header-cell>
       <table-header-cell> Price </table-header-cell>
       <table-header-cell> Offices </table-header-cell>
@@ -41,17 +41,19 @@ export default {
     TableHeaderCell,
     TableCell,
   },
+  data() {
+    return {
+      business_data: [],
+    };
+  },
+
+  computed: {},
 
   mounted() {
     axios.get("/").then((response) => {
       this.business_data = response.data.data;
       console.log(response.data.data);
     });
-  },
-  data() {
-    return {
-      business_data: [],
-    };
   },
 };
 </script>

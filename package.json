@@ -8,6 +8,8 @@
         "@tailwindcss/forms": "^0.2.1",
         "autoprefixer": "^10.3.3",
         "axios": "^0.21",
+        "eslint": "^8.7.0",
+        "eslint-plugin-vue": "^8.3.0",
         "lodash": "^4.17.19",
         "postcss": "^8.3.6",
         "postcss-import": "^12.0.1",
