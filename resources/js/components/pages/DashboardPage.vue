@@ -1,58 +1,13 @@
 <template>
-  <table-layout>
-    <template v-slot:heading>
-      <table-header-cell> Name </table-header-cell>
-      <table-header-cell> Price </table-header-cell>
-      <table-header-cell> Offices </table-header-cell>
-      <table-header-cell> Tables </table-header-cell>
-      <table-header-cell> no of Square meters </table-header-cell>
-    </template>
-
-    <template v-slot:body>
-      <tr v-for="dataRecord in business_data" :key="dataRecord.id">
-        <table-cell>
-          {{ dataRecord.name }}
-        </table-cell>
-        <table-cell>
-          {{ dataRecord.price }}
-        </table-cell>
-        <table-cell>
-          {{ dataRecord.offices }}
-        </table-cell>
-        <table-cell>
-          {{ dataRecord.tables }}
-        </table-cell>
-        <table-cell>
-          {{ dataRecord.square_meters }}
-        </table-cell>
-      </tr>
-    </template>
-  </table-layout>
+  <business-table />
 </template>
 
 <script>
-import TableLayout from "../TableLayout.vue";
-import TableHeaderCell from "../TableHeaderCell.vue";
-import TableCell from "../TableCell.vue";
+import BusinessTable from "../BusinessTable.vue";
 
 export default {
   components: {
-    TableLayout,
-    TableHeaderCell,
-    TableCell,
-  },
-  data() {
-    return {
-      business_data: [
-        {
-          name: "St Georges Terrace",
-          price: 5000,
-          offices: 6,
-          tables: 20,
-          square_meters: 400,
-        },
-      ],
-    };
+    BusinessTable,
   },
 };
 </script>
