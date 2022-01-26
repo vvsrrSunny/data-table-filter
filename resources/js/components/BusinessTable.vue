@@ -84,6 +84,12 @@ export default {
         this.business_data = response.data.data;
       });
     },
+
+    tables() {
+      axios.get(`?tables=${this.tables}`).then((response) => {
+        this.business_data = response.data.data;
+      });
+    },
   },
 };
 </script>
