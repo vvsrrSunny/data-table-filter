@@ -21,7 +21,7 @@
         />
       </div>
     </template>
-    <template v-slot:heading>
+    <template #heading>
       <table-header-cell> Name </table-header-cell>
       <table-header-cell> Price </table-header-cell>
       <table-header-cell> Offices </table-header-cell>
@@ -29,7 +29,7 @@
       <table-header-cell> no of Square meters </table-header-cell>
     </template>
 
-    <template v-slot:body>
+    <template #body>
       <tr v-for="dataRecord in business_data" :key="dataRecord.id">
         <table-cell>
           {{ dataRecord.name }}
@@ -66,9 +66,7 @@ export default {
   },
 
   mounted() {
-    axios.get("/").then((response) => {
-      this.business_data = response.data.data;
-    });
+    this.displayBusinessTable();
   },
   data() {
     return {
@@ -80,13 +78,43 @@ export default {
 
   watch: {
     offices() {
-      axios.get(`?offices=${this.offices}`).then((response) => {
-        this.business_data = response.data.data;
-      });
+      this.displayBusinessTable();
     },
 
     tables() {
-      axios.get(`?tables=${this.tables}`).then((response) => {
+      this.displayBusinessTable();
+    },
+  },
+
+  methods: {
+    displayBusinessTable() {
+      let filters = [];
+
+      if (this.offices) {
+        filters.push({
+          name: "offices",
+          value: this.offices,
+        });
+      }
+
+      if (this.tables) {
+        filters.push({
+          name: "tables",
+          value: this.tables,
+        });
+      }
+      let endpoint = "/";
+
+      filters.forEach((element, index) => {
+        if (index == 0) {
+          endpoint = `${endpoint}?${element.name}=${element.value}`;
+          return;
+        }
+
+        endpoint = `${endpoint}&${element.name}=${element.value}`;
+      });
+
+      axios.get(endpoint).then((response) => {
         this.business_data = response.data.data;
       });
     },
