@@ -5,7 +5,7 @@
     :id="id"
     class="
       shadow-sm
-      focus:ring-red-500 focus:border-red-500
+      focus:ring-gray-800 focus:border-gray-800
       block
       w-full
       sm:text-sm

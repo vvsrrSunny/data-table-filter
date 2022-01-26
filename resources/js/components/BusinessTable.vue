@@ -1,5 +1,26 @@
 <template>
   <table-layout>
+    <template #filters>
+      <div>
+        Offices
+        <the-input
+          v-model="offices"
+          type="number"
+          id="offices"
+          placeholder="Offices"
+        />
+      </div>
+      <div>
+        Tables
+        <the-input
+          v-model="tables"
+          type="number"
+          id="name"
+          placeholder="Name"
+          class="w-40"
+        />
+      </div>
+    </template>
     <template v-slot:heading>
       <table-header-cell> Name </table-header-cell>
       <table-header-cell> Price </table-header-cell>
@@ -34,24 +55,35 @@
 import TableLayout from "./TableLayout.vue";
 import TableHeaderCell from "./TableHeaderCell.vue";
 import TableCell from "./TableCell.vue";
+import TheInput from "./TheInput.vue";
 
 export default {
   components: {
     TableLayout,
     TableHeaderCell,
     TableCell,
+    TheInput,
   },
 
   mounted() {
     axios.get("/").then((response) => {
       this.business_data = response.data.data;
-      console.log(response.data.data);
     });
   },
   data() {
     return {
       business_data: [],
+      offices: null,
+      tables: null,
     };
+  },
+
+  watch: {
+    offices() {
+      axios.get(`?offices=${this.offices}`).then((response) => {
+        this.business_data = response.data.data;
+      });
+    },
   },
 };
 </script>

@@ -8,7 +8,7 @@
         md:flex-row md:items-end md:space-x-2 md:space-y-0
       "
     >
-      <the-input v-model="name" id="name" placeholder="Name" class="w-40" />
+      <slot name="filters" />
     </div>
     <div class="flex flex-col">
       <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -37,16 +37,3 @@
     </div>
   </div>
 </template>
-
-<script>
-import TheInput from "./TheInput.vue";
-export default {
-  components: { TheInput },
-
-  data() {
-    return {
-      name: "",
-    };
-  },
-};
-</script>
