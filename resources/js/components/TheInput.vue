@@ -5,10 +5,11 @@
     :id="id"
     class="
       shadow-sm
-      focus:ring-indigo-500
+      focus:ring-red-500 focus:border-red-500
       block
+      w-full
       sm:text-sm
-      border-gray-500 border
+      border-gray-300
       rounded-md
     "
     :placeholder="placeholder"
@@ -17,7 +18,6 @@
 </template>
 
 <script>
-
 export default {
   emits: ["update:modelValue"],
 
