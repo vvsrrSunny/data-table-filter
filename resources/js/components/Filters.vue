@@ -68,8 +68,7 @@
       </div>
     </div>
     <div>
-
-<the-search/>
+      <the-search v-model="search" />
     </div>
   </div>
 </template>
@@ -83,7 +82,7 @@ export default {
     TheSearch,
   },
 
-  emits: ["offices", "tables", "price", "square-meters"],
+  emits: ["offices", "tables", "price", "square-meters", "search"],
 
   data() {
     return {
@@ -97,6 +96,7 @@ export default {
         from: null,
         to: null,
       },
+      search: "",
     };
   },
 
@@ -121,6 +121,10 @@ export default {
       handler() {
         this.$emit("square-meters", this.square_meters);
       },
+    },
+
+    search(val) {
+      this.$emit("search", val);
     },
   },
 };

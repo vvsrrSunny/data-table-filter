@@ -6,6 +6,7 @@
         @tables="(val) => (tables = val)"
         @price="(val) => (price = val)"
         @square-meters="(val) => (square_meters = val)"
+        @search="(val) => (search = val)"
       />
     </template>
     <template #heading>
@@ -68,6 +69,7 @@ export default {
         from: null,
         to: null,
       },
+      search: null,
     };
   },
 
@@ -92,6 +94,10 @@ export default {
       handler() {
         this.displayBusinessTable();
       },
+    },
+
+    search() {
+      this.displayBusinessTable();
     },
   },
 
@@ -147,6 +153,12 @@ export default {
         });
       }
 
+      if (this.search) {
+        filters.push({
+          name: "search",
+          value: this.search,
+        });
+      }
       return filters;
     },
 

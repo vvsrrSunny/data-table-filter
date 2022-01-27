@@ -13,6 +13,7 @@
     :class="[width ? width : 'w-full', rounded ? rounded : 'rounded-md']"
     :placeholder="placeholder"
     v-model="inputVal"
+    :min="min"
   />
 </template>
 
@@ -21,6 +22,11 @@ export default {
   emits: ["update:modelValue"],
 
   props: {
+    min: {
+      type: Number,
+      default: 0,
+    },
+
     width: {
       type: String,
       default: null,

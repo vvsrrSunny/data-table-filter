@@ -9,11 +9,12 @@
         pr-16
         rounded-md
         text-sm
-        focus:outline-none
+        focus:ring-gray-800 focus:border-gray-800
       "
       type="search"
       name="search"
       placeholder="Search"
+      v-model="inputVal"
     />
     <button type="submit" class="absolute right-0 top-0 mt-5 mr-4">
       <svg
@@ -21,7 +22,7 @@
         xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink"
         version="1.1"
-        id="Capa_1"
+        id="search"
         x="0px"
         y="0px"
         viewBox="0 0 56.966 56.966"
@@ -37,3 +38,25 @@
     </button>
   </div>
 </template>
+<script>
+export default {
+  emits: ["update:modelValue"],
+
+  data() {
+    return {
+      inputVal: this.modelValue,
+    };
+  },
+
+  watch: {
+    inputVal() {
+      this.$emit("update:modelValue", this.inputVal);
+    },
+
+    modelValue() {
+      this.inputVal = this.modelValue;
+    },
+  },
+};
+</script>
+
