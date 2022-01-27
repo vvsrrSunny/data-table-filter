@@ -88,6 +88,16 @@ export default {
 
   methods: {
     displayBusinessTable() {
+      let filters = this.getFilter();
+      
+      let endpoint = this.makeEndPoint(filters);
+
+      axios.get(endpoint).then((response) => {
+        this.business_data = response.data.data;
+      });
+    },
+
+    getFilter() {
       let filters = [];
 
       if (this.offices) {
@@ -103,20 +113,22 @@ export default {
           value: this.tables,
         });
       }
-      let endpoint = "/";
 
+      return filters;
+    },
+
+    makeEndPoint(filters, endpoint = "/") {
       filters.forEach((element, index) => {
         if (index == 0) {
           endpoint = `${endpoint}?${element.name}=${element.value}`;
+
           return;
         }
 
         endpoint = `${endpoint}&${element.name}=${element.value}`;
       });
 
-      axios.get(endpoint).then((response) => {
-        this.business_data = response.data.data;
-      });
+      return endpoint;
     },
   },
 };
