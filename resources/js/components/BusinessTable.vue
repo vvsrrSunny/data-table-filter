@@ -2,9 +2,10 @@
   <table-layout>
     <template #filters>
       <filters
-        @offices="(val) => (this.offices = val)"
-        @tables="(val) => (this.tables = val)"
-        @price="(val) => (this.price = val)"
+        @offices="(val) => (offices = val)"
+        @tables="(val) => (tables = val)"
+        @price="(val) => (price = val)"
+        @square-meters="(val) => (square_meters = val)"
       />
     </template>
     <template #heading>
@@ -63,6 +64,10 @@ export default {
         from: null,
         to: null,
       },
+      square_meters: {
+        from: null,
+        to: null,
+      },
     };
   },
 
@@ -76,6 +81,13 @@ export default {
     },
 
     price: {
+      deep: true,
+      handler() {
+        this.displayBusinessTable();
+      },
+    },
+
+    square_meters: {
       deep: true,
       handler() {
         this.displayBusinessTable();
@@ -120,6 +132,18 @@ export default {
         filters.push({
           name: "price[to]",
           value: this.price.to,
+        });
+      }
+
+      if (this.square_meters.from && this.square_meters.to) {
+        filters.push({
+          name: "square_meters[from]",
+          value: this.square_meters.from,
+        });
+
+        filters.push({
+          name: "square_meters[to]",
+          value: this.square_meters.to,
         });
       }
 

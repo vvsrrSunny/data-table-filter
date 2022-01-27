@@ -33,14 +33,34 @@
         <the-input
           v-model="price.from"
           type="number"
-          id="name"
+          id="price-from"
           placeholder="from"
           rounded="rounded-l-md"
         />
         <the-input
           v-model="price.to"
           type="number"
-          id="name"
+          id="price-to"
+          placeholder="to"
+          rounded="rounded-r-md"
+        />
+      </div>
+    </div>
+
+    <div>
+      No of Square Meters
+      <div class="flex flex-row w-40">
+        <the-input
+          v-model="square_meters.from"
+          type="number"
+          id="square-meters-from"
+          placeholder="from"
+          rounded="rounded-l-md"
+        />
+        <the-input
+          v-model="square_meters.to"
+          type="number"
+          id="square-meters-to"
           placeholder="to"
           rounded="rounded-r-md"
         />
@@ -56,13 +76,17 @@ export default {
     TheInput,
   },
 
-  emits: ["offices", "tables", "price"],
+  emits: ["offices", "tables", "price", "square-meters"],
 
   data() {
     return {
       offices: null,
       tables: null,
       price: {
+        from: null,
+        to: null,
+      },
+      square_meters: {
         from: null,
         to: null,
       },
@@ -82,6 +106,13 @@ export default {
       deep: true,
       handler() {
         this.$emit("price", this.price);
+      },
+    },
+
+    square_meters: {
+      deep: true,
+      handler() {
+        this.$emit("square-meters", this.square_meters);
       },
     },
   },
