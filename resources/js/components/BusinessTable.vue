@@ -44,6 +44,7 @@ import TableLayout from "./TableLayout.vue";
 import TableHeaderCell from "./TableHeaderCell.vue";
 import TableCell from "./TableCell.vue";
 import Filters from "./Filters.vue";
+import debounce from "lodash/debounce";
 
 export default {
   components: {
@@ -78,7 +79,7 @@ export default {
       this.displayBusinessTable();
     },
 
-    tables() {
+    tables: () => {
       this.displayBusinessTable();
     },
 
@@ -96,9 +97,9 @@ export default {
       },
     },
 
-    search() {
+    search: debounce(function () {
       this.displayBusinessTable();
-    },
+    }, 250),
   },
 
   methods: {
