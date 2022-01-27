@@ -68,22 +68,19 @@
       </div>
     </div>
     <div>
-      <the-input
-        v-model="tables"
-        type="number"
-        id="tables"
-        placeholder="Tables"
-        class="w-40"
-      />
+
+<the-search/>
     </div>
   </div>
 </template>
 <script>
 import TheInput from "./TheInput.vue";
+import TheSearch from "./TheSearch.vue";
 
 export default {
   components: {
     TheInput,
+    TheSearch,
   },
 
   emits: ["offices", "tables", "price", "square-meters"],
