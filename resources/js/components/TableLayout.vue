@@ -1,15 +1,6 @@
 <template>
   <div>
-    <div
-      class="
-        pb-3
-        flex flex-col
-        space-y-2
-        md:flex-row md:items-end md:space-x-2 md:space-y-0
-      "
-    >
-      <slot name="filters" />
-    </div>
+    <slot name="filters" />
     <div class="flex flex-col">
       <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">

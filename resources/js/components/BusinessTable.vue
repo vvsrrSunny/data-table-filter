@@ -1,45 +1,11 @@
 <template>
   <table-layout>
     <template #filters>
-      <div>
-        Offices
-        <the-input
-          v-model="offices"
-          type="number"
-          id="offices"
-          placeholder="Offices"
-        />
-      </div>
-      <div>
-        Tables
-        <the-input
-          v-model="tables"
-          type="number"
-          id="tables"
-          placeholder="Tables"
-          class="w-40"
-        />
-      </div>
-
-      <div>
-        Price
-        <div class="flex flex-row w-40">
-          <the-input
-            v-model="price.from"
-            type="number"
-            id="name"
-            placeholder="from"
-            rounded="rounded-l-md"
-          />
-          <the-input
-            v-model="price.to"
-            type="number"
-            id="name"
-            placeholder="to"
-            rounded="rounded-r-md"
-          />
-        </div>
-      </div>
+      <filters
+        @offices="(val) => (this.offices = val)"
+        @tables="(val) => (this.tables = val)"
+        @price="(val) => (this.price = val)"
+      />
     </template>
     <template #heading>
       <table-header-cell> Name </table-header-cell>
@@ -75,14 +41,14 @@
 import TableLayout from "./TableLayout.vue";
 import TableHeaderCell from "./TableHeaderCell.vue";
 import TableCell from "./TableCell.vue";
-import TheInput from "./TheInput.vue";
+import Filters from "./Filters.vue";
 
 export default {
   components: {
     TableLayout,
     TableHeaderCell,
     TableCell,
-    TheInput,
+    Filters,
   },
 
   mounted() {
