@@ -108,6 +108,13 @@ export default {
     tables() {
       this.displayBusinessTable();
     },
+
+    price: {
+      deep: true,
+      handler() {
+        this.displayBusinessTable();
+      },
+    },
   },
 
   methods: {
@@ -135,6 +142,18 @@ export default {
         filters.push({
           name: "tables",
           value: this.tables,
+        });
+      }
+
+      if (this.price.from && this.price.to) {
+        filters.push({
+          name: "price[from]",
+          value: this.price.from,
+        });
+
+        filters.push({
+          name: "price[to]",
+          value: this.price.to,
         });
       }
 
