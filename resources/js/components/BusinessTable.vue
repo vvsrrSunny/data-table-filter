@@ -15,10 +15,30 @@
         <the-input
           v-model="tables"
           type="number"
-          id="name"
-          placeholder="Name"
+          id="tables"
+          placeholder="Tables"
           class="w-40"
         />
+      </div>
+
+      <div>
+        Price
+        <div class="flex flex-row w-40">
+          <the-input
+            v-model="price.from"
+            type="number"
+            id="name"
+            placeholder="from"
+            rounded="rounded-l-md"
+          />
+          <the-input
+            v-model="price.to"
+            type="number"
+            id="name"
+            placeholder="to"
+            rounded="rounded-r-md"
+          />
+        </div>
       </div>
     </template>
     <template #heading>
@@ -73,6 +93,10 @@ export default {
       business_data: [],
       offices: null,
       tables: null,
+      price: {
+        from: null,
+        to: null,
+      },
     };
   },
 
@@ -89,7 +113,7 @@ export default {
   methods: {
     displayBusinessTable() {
       let filters = this.getFilter();
-      
+
       let endpoint = this.makeEndPoint(filters);
 
       axios.get(endpoint).then((response) => {

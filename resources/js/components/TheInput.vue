@@ -7,11 +7,10 @@
       shadow-sm
       focus:ring-gray-800 focus:border-gray-800
       block
-      w-full
       sm:text-sm
       border-gray-300
-      rounded-md
     "
+    :class="[width ? width : 'w-full', rounded ? rounded : 'rounded-md']"
     :placeholder="placeholder"
     v-model="inputVal"
   />
@@ -22,6 +21,16 @@ export default {
   emits: ["update:modelValue"],
 
   props: {
+    width: {
+      type: String,
+      default: null,
+    },
+
+    rounded: {
+      type: String,
+      default: null,
+    },
+
     id: {
       type: String,
       required: true,
