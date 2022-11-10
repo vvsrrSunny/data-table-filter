@@ -15,7 +15,10 @@ class BusinessDataSeeder extends Seeder
      */
     public function run()
     {
-        $csv = Reader::createFromPath(database_path('seeds\csvs\business-data.csv'), 'r');
+        // for windows
+        // $csv = Reader::createFromPath(database_path('seeds\csvs\business-data.csv'), 'r');
+        // for linux
+        $csv = Reader::createFromPath(database_path('seeds/csvs/business-data.csv'), 'r');
         $csv->setHeaderOffset(0);
 
         $records = $csv->getRecords(); //returns all the CSV records as an Iterator object
