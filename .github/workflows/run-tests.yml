@@ -2,15 +2,17 @@ name: Run test suite
 on: push
 
 jobs:
-    run-tests:
-        name: Run php unit test.
-        runs-on: ubuntu-latest
-        container:
-            image: composer:latest
-            volumes:
-                - .:/app
-        steps:
-            - name: Running composer install
-              run: composer install
-            - name: Running php unit tes cases
-              run: ./vendor/bin/phpunit tests
+  run-tests:
+    name: Run php unit test.
+    runs-on: ubuntu-latest
+    container:
+      image: composer:latest
+      volumes:
+        - ${{ github.workspace }}:/app
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Running composer install
+        run: composer install
+      - name: Running php unit tes cases
+        run: ./vendor/bin/phpunit tests
