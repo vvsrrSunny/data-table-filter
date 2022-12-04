@@ -13,5 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', 'App\http\controllers\BusinessDataController')->name('business.index');
-Route::get('/', 'BusinessDataController')->name('business.index');
+Route::get('/', 'App\http\controllers\BusinessDataController')->name('business.index');
+// need to make this update for the git hub actions
+// Route::get('/', 'BusinessDataController')->name('business.index');
