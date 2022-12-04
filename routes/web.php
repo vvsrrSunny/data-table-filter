@@ -13,4 +13,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'App\http\controllers\BusinessDataController')->name('business.index');
+// Route::get('/', 'App\http\controllers\BusinessDataController')->name('business.index');
+Route::get('/', 'BusinessDataController')->name('business.index');
