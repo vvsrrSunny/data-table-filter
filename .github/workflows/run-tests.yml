@@ -15,4 +15,6 @@ jobs:
       - name: Running composer install
         run: composer install
       - name: Running php unit tes cases
-        run: ./vendor/bin/phpunit tests
+      # this command did not work as the github actions failed and recommended to run the "./vendor/bin/pest"
+        # run: ./vendor/bin/phpunit tests
+        run: ./vendor/bin/pest tests
