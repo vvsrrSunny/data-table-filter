@@ -20,7 +20,7 @@ test('can get a listing of offices', function () {
         ]);
 });
 
-test('can filter the business data table by name', function () {
+test('can filter the business data table by name', function () { 
     BusinessData::factory()->create(['name' => 'Perth Northbridge']);
     BusinessData::factory()->count(2)->create();
 
