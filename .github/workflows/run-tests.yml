@@ -14,9 +14,10 @@ jobs:
         uses: actions/checkout@v2
       - name: Running composer install
         run: composer install
-      - name: Create a sqlite file'
+      - name: Create a sqlite file
         run: touch database/database.sqlite
       - name: Running php unit test cases
       # this command did not work as the github actions failed and recommended to run the "./vendor/bin/pest"
         # run: ./vendor/bin/phpunit tests
-        run: ./vendor/bin/pest tests
+        # run: ./vendor/bin/pest tests
+        run: php artisan test
