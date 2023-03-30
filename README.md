@@ -53,7 +53,7 @@ npm install
 ```
 * Run the backend server 
 ```
-php atrisan serve
+php artisan serve
 ```
 * Run the frontend vite server
 ```
